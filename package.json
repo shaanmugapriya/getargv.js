@@ -1,0 +1,32 @@
+{
+    "devDependencies": {
+        "@types/node": "^18.11.18",
+        "typescript": "^4.9.4"
+    },
+    "bugs": {
+        "url": "https://github.com/getargv/getargv.js/issues"
+    },
+    "name": "getargv",
+    "homepage": "https://getargv.narzt.cam/",
+    "author": "Camden Narzt <getargv@narzt.cam>",
+    "version": "0.0.1",
+    "description": "This library allows you to query the arguments of other processes on macOS.",
+    "main": "lib/binding.js",
+    "scripts": {
+        "build":"node-gyp configure build",
+        "pretest": "tsc",
+        "test": "node --napi-modules ./test/test_binding.js"
+    },
+    "gypfile": true,
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/getargv/getargv.js"
+    },
+    "keywords": [
+        "macOS",
+        "KERN_PROCARGS2",
+        "arguments",
+        "processes"
+    ],
+    "license": "BSD-3-Clause"
+}
