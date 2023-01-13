@@ -1,21 +1,29 @@
 {
+    "bin": {
+        "getargv": "lib/cli.js"
+    },
     "devDependencies": {
         "@types/node": "^18.11.18",
         "typescript": "^4.9.4"
     },
+    "os": [
+        "darwin"
+    ],
+    "funding": "https://github.com/sponsors/CamJN",
     "bugs": {
         "url": "https://github.com/getargv/getargv.js/issues"
     },
-    "name": "getargv",
+    "name": "@camjn/getargv",
     "homepage": "https://getargv.narzt.cam/",
     "author": "Camden Narzt <getargv@narzt.cam>",
     "version": "0.0.1",
     "description": "This library allows you to query the arguments of other processes on macOS.",
     "main": "lib/binding.js",
     "scripts": {
-        "build":"node-gyp configure build",
+        "build": "node-gyp configure build",
         "pretest": "tsc",
-        "test": "node --napi-modules ./test/test_binding.js"
+        "test": "node --napi-modules ./test/test_binding.js",
+        "console": "node --napi-modules -r ./build/Release/getargv_native"
     },
     "gypfile": true,
     "repository": {
