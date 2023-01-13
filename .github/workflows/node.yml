@@ -35,10 +35,10 @@ jobs:
         cache: 'npm'
         check-latest: true
         cache-dependency-path: ./getargv.js/package-lock.json
-    - run: cat /Users/runner/.npm/_logs/*-debug.log && false
-      if: ${{ failure() }}
     - run: npm ci
       working-directory: getargv.js
+    - run: cat /Users/runner/.npm/_logs/*-debug.log && false
+      if: ${{ failure() }}
     - run: npm run build --if-present
       working-directory: getargv.js
     - run: npm test
