@@ -28,7 +28,6 @@ jobs:
     - uses: actions/checkout@v3
       with:
         path: getargv.js
-    - run: ls -R
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -36,8 +35,6 @@ jobs:
         cache: 'npm'
         check-latest: true
         cache-dependency-path: ./getargv.js/package-lock.json
-    - run: cat /Users/runner/.npm/_logs/*-debug.log
-      if: ${{ success() || failure() }}
     - run: npm ci
       working-directory: getargv.js
     - run: npm run build --if-present
