@@ -126,7 +126,7 @@ napi_value GetArgvAndArgcOfPid(napi_env env, napi_callback_info info) {
                           "The \"pid\" argument must be specified");
   } else if (argc > 1) {
     napi_throw_type_error(env, "ERR_TOO_MANY_ARGS",
-                          "Too many arguments were provided, max: 3");
+                          "Too many arguments were provided, max: 1");
   }
 
   pid_t pid = 0;
