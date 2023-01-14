@@ -23,6 +23,8 @@
         "build": "node-gyp configure build",
         "pretest": "tsc",
         "test": "node --napi-modules ./test/test_binding.js",
+        "precli": "tsc",
+        "cli": "node dist/cli.js",
         "console": "node --napi-modules -r ./build/Release/getargv_native -e 'const GetArgv = require.cache[Object.keys(require.cache)[0]].exports;' -i"
     },
     "gypfile": true,
