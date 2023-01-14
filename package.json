@@ -16,7 +16,7 @@
     "name": "@camjn/getargv",
     "homepage": "https://getargv.narzt.cam/",
     "author": "Camden Narzt <getargv@narzt.cam>",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "description": "This library allows you to query the arguments of other processes on macOS.",
     "main": "lib/binding.js",
     "scripts": {
