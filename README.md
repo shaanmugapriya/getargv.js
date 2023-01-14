@@ -25,7 +25,7 @@ After checking out the repo, run `npm i` to install dependencies. Then, run `npm
 
 TS code goes in the `lib` dir, C code goes in the `src` dir.
 
-To install this module onto your local machine, run `npm install`. To release a new version, run `npm version patch` to update the version number in `package.json` and create a git tag for the version, and push git commits and the created tag to the git origin; and then run `npm publish`, which will push the module to npm.[npmjs.com](https://www.npmjs.com).
+To install this module onto your local machine, run `npm install`. To release a new version, run `npm version patch` to update the version number in `package.json` and create a git tag for the version, and push git commits and the created tag to the git origin; and then run `npm publish`, which will push the module to [npm](https://www.npmjs.com).
 
 ## Contributing
 
