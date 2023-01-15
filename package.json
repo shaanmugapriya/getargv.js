@@ -29,12 +29,12 @@
         "console": "node --napi-modules -r ./build/Release/getargv_native -e 'const GetArgv = require.cache[Object.keys(require.cache)[0]].exports;' -i"
     },
     "files": [
-        "README.md",
-        "logo.svg",
-        "dist",
-        "src",
-        "binding.gyp",
-        "package.json"
+        "/README.md",
+        "/logo.svg",
+        "/dist",
+        "/src",
+        "/binding.gyp",
+        "/package.json"
     ],
     "gypfile": true,
     "repository": {
