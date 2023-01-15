@@ -12,4 +12,7 @@ interface GetArgv {
 
 const addon: GetArgv = require('../build/Release/getargv_native');
 
-export = addon
+exports.PID_MAX = addon.PID_MAX;
+exports.ARG_MAX = addon.ARG_MAX;
+exports.get_argv_of_pid = addon.get_argv_of_pid;
+exports.get_argv_and_argc_of_pid = addon.get_argv_and_argc_of_pid;
