@@ -9,7 +9,7 @@ This module allows you to query the arguments of other processes on macOS.
 
 Install the module and add to the application's package.json by executing:
 
-    $ npm i @camjn/getargv
+    $ npm install --save-optional @camjn/getargv
 
 ## Usage
 
