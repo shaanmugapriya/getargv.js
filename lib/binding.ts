@@ -16,3 +16,5 @@ exports.PID_MAX = addon.PID_MAX;
 exports.ARG_MAX = addon.ARG_MAX;
 exports.get_argv_of_pid = addon.get_argv_of_pid;
 exports.get_argv_and_argc_of_pid = addon.get_argv_and_argc_of_pid;
+
+export = addon;
