@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  test:
     runs-on: macos-latest
     strategy:
       matrix:
@@ -42,3 +42,29 @@ jobs:
       working-directory: getargv.js
     - run: npm test
       working-directory: getargv.js
+  build:
+    runs-on: macos-latest
+    needs: [ test ]
+    steps:
+    - uses: actions/checkout@v3
+    - run: |
+        npm ci
+        mkdir pkg
+        npm pack --pack-destination ./pkg/
+    - uses: actions/upload-artifact@v3
+      with:
+        name: pack
+        path: pkg/*
+
+  release:
+    if: ${{ github.ref_type == 'tag' }}
+    needs: [ build ]
+    runs-on: macos-latest
+    steps:
+    - uses: actions/download-artifact@v3
+      with:
+        path: pkg
+    - uses: softprops/action-gh-release@v1
+      with:
+        files: pkg/pack/*
+        name: ${{ github.ref_name }}
