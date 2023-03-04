@@ -137,7 +137,7 @@ napi_value GetArgvOfPid(napi_env env, napi_callback_info info) {
       napi_throw_error(env, "ERR_INTERNAL_ASSERTION",
                        "Unable to create return value");
     }
-    free(result.buffer);
+    free_ArgvResult(&result);
   }
 
   return args;
@@ -174,8 +174,7 @@ napi_value GetArgvAndArgcOfPid(napi_env env, napi_callback_info info) {
         }
       }
     }
-    free(result.argv);
-    free(result.buffer);
+    free_ArgvArgcResult(&result);
   }
 
   return args;

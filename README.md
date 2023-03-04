@@ -5,11 +5,24 @@
 
 This module allows you to query the arguments of other processes on macOS.
 
-## Installation
+## Module Installation
 
-Install the module and add to the application's package.json by executing:
+ - Install `libgetargv` to your system (see below).
+ - Install the module and add to the application's package.json by executing:
 
     $ npm install --save-optional @camjn/getargv
+
+Saving this module as optional is important because it can only build on macOS, so npm needs to be able to exclude it on other OSs.
+
+## Library Installation
+
+ - To get access to `libgetargv`, sign up for an appropriate [sponsorship tier](https://github.com/sponsors/CamJN).
+ - Clone the `libgetargv` repo: `git clone https://github.com/getargv/getargv.git`.
+ - Running `make install_dylib`, installs the library to the `/usr/local/` prefix by default; you can change the install location with the `PREFIX` `make` variable: `make PREFIX=/opt install_dylib`.
+
+## Building `libgetargv`
+
+I've built `libgetargv` on macOS 10.7-13, using only the <abbr title="Command Line Tools">CLT</abbr> package, not the full Xcode install. If you need to override variables, do so inside the `make` command, eg: `make EXTRA_CPPFLAGS=-DMACRO EXTRA_CFLAGS=-std=c17 dylib`.
 
 ## Usage
 
