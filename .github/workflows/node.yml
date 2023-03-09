@@ -54,18 +54,18 @@ jobs:
       working-directory: getargv.js
     - uses: actions/upload-artifact@v3
       with:
-        name: pack
+        name: pack-${{ matrix.node-version }}
         path: getargv.js/pkg/*
 
   release:
     if: ${{ github.ref_type == 'tag' }}
     needs: [ test ]
-    runs-on: macos-latest
+    runs-on: ubuntu-latest
     steps:
     - uses: actions/download-artifact@v3
       with:
         path: pkg
     - uses: softprops/action-gh-release@v1
       with:
-        files: pkg/pack/*
+        files: pkg/pack-*/*
         name: ${{ github.ref_name }}
