@@ -50,7 +50,7 @@ jobs:
       run: |
         npm ci
         mkdir pkg
-        npm pack --pack-destination ./pkg/
+        npm pack --pack-destination ./pkg/ || ( npm pack && mv camjn-getargv*.tgz ./pkg/ )
       working-directory: getargv.js
     - uses: actions/upload-artifact@v3
       with:
