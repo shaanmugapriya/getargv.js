@@ -15,11 +15,15 @@ interface GetArgv {
 
 const addon: GetArgv = require('../build/Release/getargv_native');
 addon.as_string = function as_string(pid: number, encoding: Labels, nuls?: boolean, skip?: number) {
+    if (!pid) { throw new TypeError('The "pid" argument must be specified') }
+    if (!encoding) { throw new TypeError('The "encoding" argument must be specified') }
     const decoder = new TextDecoder(encoding);
-    const array = addon.get_argv_of_pid(pid, nuls??false, skip??0);
+    const array = addon.get_argv_of_pid(pid, nuls ?? false, skip ?? 0);
     return decoder.decode(array);
 }
 addon.as_array = function as_array(pid: number, encoding: Labels) {
+    if (!pid) { throw new TypeError('The "pid" argument must be specified') }
+    if (!encoding) { throw new TypeError('The "encoding" argument must be specified') }
     const decoder = new TextDecoder(encoding);
     const array = addon.get_argv_and_argc_of_pid(pid);
     return array.map(b => decoder.decode(b));
