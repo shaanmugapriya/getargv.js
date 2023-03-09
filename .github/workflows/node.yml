@@ -56,7 +56,7 @@ jobs:
 
   release:
     if: ${{ github.ref_type == 'tag' }}
-    needs: [ build ]
+    needs: [ test ]
     runs-on: macos-latest
     steps:
     - uses: actions/download-artifact@v3
