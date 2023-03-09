@@ -22,10 +22,10 @@
     "scripts": {
         "prebuild": "tsc",
         "build": "node-gyp configure build",
-        "pretest": "tsc",
+        "pretest": "npm run build",
         "test": "node --napi-modules ./test/test_binding.js",
-        "prepack": "tsc",
-        "precli": "tsc",
+        "prepack": "npm run build",
+        "precli": "npm run build",
         "cli": "node dist/cli.js",
         "preconsole": "npm run build",
         "console": "node --napi-modules -r ./dist/binding.js -e 'const GetArgv = require.cache[Object.keys(require.cache)[0]].exports;' -i",
