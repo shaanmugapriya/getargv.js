@@ -42,19 +42,17 @@ jobs:
       working-directory: getargv.js
     - run: npm test
       working-directory: getargv.js
-  build:
-    runs-on: macos-latest
-    needs: [ test ]
-    steps:
-    - uses: actions/checkout@v3
-    - run: |
+
+    - name: Build
+      run: |
         npm ci
         mkdir pkg
         npm pack --pack-destination ./pkg/
+      working-directory: getargv.js
     - uses: actions/upload-artifact@v3
       with:
         name: pack
-        path: pkg/*
+        path: getargv.js/pkg/*
 
   release:
     if: ${{ github.ref_type == 'tag' }}
