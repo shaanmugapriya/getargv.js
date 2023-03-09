@@ -19,7 +19,7 @@ napi_value get_undefined(napi_env env) {
 }
 
 napi_value create_system_error(napi_env env, errno_t err) {
-  //we skip checking status in here because we already have a failure
+  // we skip checking status in here because we already have a failure
   napi_value code;
   napi_create_string_utf8(env, "ERR_SYSTEM_ERROR", NAPI_AUTO_LENGTH, &code);
 
@@ -129,13 +129,14 @@ napi_value GetArgvOfPid(napi_env env, napi_callback_info info) {
 
     napi_throw(env, error);
   } else {
-    if (napi_create_string_utf8(env, result.start_pointer,
+    char *innerbuff = NULL;
+    if (napi_create_arraybuffer(env,
                                 result.end_pointer - result.start_pointer + 1,
-                                &args) != napi_ok) {
-      // args not guaranteed to be utf8 or even latin1/ascii, but ruby, swift,
-      // and node all want strings to be properly encoded
+                                (void **)&innerbuff, &args) != napi_ok) {
       napi_throw_error(env, "ERR_INTERNAL_ASSERTION",
                        "Unable to create return value");
+    } else {
+      memcpy(innerbuff, result.start_pointer, result.end_pointer - result.start_pointer + 1);
     }
     free_ArgvResult(&result);
   }
@@ -158,16 +159,17 @@ napi_value GetArgvAndArgcOfPid(napi_env env, napi_callback_info info) {
                        "Unable to create return value");
     } else {
       for (size_t i = 0; i < result.argc; i++) {
-        napi_value string;
-        // args not guaranteed to be utf8 or even latin1/ascii, but ruby, swift,
-        // and node all want strings to be properly encoded...
-        if (napi_ok != napi_create_string_utf8(env, result.argv[i],
-                                               NAPI_AUTO_LENGTH, &string)) {
+        napi_value buffer;
+        char *innerbuff = NULL;
+        size_t len = strlen(result.argv[i]) + 1;
+        if (napi_create_arraybuffer(env, len, (void **)&innerbuff, &buffer) !=
+            napi_ok) {
           napi_throw_error(env, "ERR_INTERNAL_ASSERTION",
-                           "Unable to create string");
+                           "Unable to create ArrayBuffer");
           break;
         }
-        if (napi_ok != napi_set_element(env, args, i, string)) {
+        memcpy(innerbuff, result.argv[i], len);
+        if (napi_ok != napi_set_element(env, args, i, buffer)) {
           napi_throw_error(env, "ERR_INTERNAL_ASSERTION",
                            "Unable to populate array");
           break;
