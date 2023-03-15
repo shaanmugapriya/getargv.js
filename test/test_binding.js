@@ -26,7 +26,7 @@ assert.throws(_ => Getargv.as_string(process.pid), {
 
 assert.throws(_ => Getargv.as_string('a', 'utf-8'), {
     name: 'TypeError',
-    message: 'Invalid number was passed as first argument',
+    message: 'The "pid" argument must be a number',
 });
 
 assert.throws(_ => Getargv.as_string(process.pid, 'a'), {
@@ -46,7 +46,7 @@ assert.throws(_ => Getargv.as_array(process.pid), {
 
 assert.throws(_ => Getargv.as_array('a', 'utf-8'), {
     name: 'TypeError',
-    message: 'Invalid number was passed as first argument',
+    message: 'The "pid" argument must be a number',
 });
 
 assert.throws(_ => Getargv.as_array(process.pid, 'a'), {
@@ -107,6 +107,16 @@ assert.throws(_ => Getargv.get_argv_and_argc_of_pid(-1), {
 assert.throws(_ => Getargv.get_argv_and_argc_of_pid(-1), {
     name: 'RangeError',
     message: 'Invalid PID was passed as first argument',
+});
+
+assert.throws(_ => Getargv.as_string(process.pid, "utf-16", undefined, undefined, { fatal: true }), {
+    name: 'TypeError',
+    message: "The encoded data was not valid for encoding utf-16le",
+});
+
+assert.throws(_ => Getargv.as_array(process.pid, "utf-16", { fatal: true }), {
+    name: 'TypeError',
+    message: "The encoded data was not valid for encoding utf-16le",
 });
 
 section("Testing functions");//--------------------------------------------------
