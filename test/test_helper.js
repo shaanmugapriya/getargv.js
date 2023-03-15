@@ -15,7 +15,15 @@ function assert_true() {
 const assert = assert_true;
 Object.entries(iassert).forEach(([k, v]) => {
     if (typeof v === 'function') {
-        assert[k] = function () { v(...arguments); process.stdout.write(".") };
+        assert[k] = function () {
+            try {
+                v(...arguments);
+                process.stdout.write(".");
+            } catch (e) {
+                process.stdout.write("F");
+                errors.push(e);
+            }
+        };
     }
 });
 
