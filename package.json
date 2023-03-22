@@ -31,6 +31,7 @@
         "cli": "node dist/cli.js",
         "preconsole": "npm run build",
         "console": "node --napi-modules -r ./dist/binding.js -e 'const GetArgv = require.cache[Object.keys(require.cache)[0]].exports;' -i",
+        "docs": "typedoc --tsconfig $PWD/tsconfig.json lib/types.ts",
         "start": "npm run console"
     },
     "files": [
