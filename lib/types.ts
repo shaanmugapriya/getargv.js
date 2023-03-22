@@ -47,15 +47,61 @@ export type TextDecoderOptions = ConstructorParameters<typeof TextDecoder>[1];
 
 export interface GetArgv {
 
+    /** @constant
+      * @description the maximum value a pid may have on the system
+      */
     readonly PID_MAX: number;
 
+    /** @constant
+      * @description the maximum number of bytes that can be passed as args to a process (including env vars, etc)
+      */
     readonly ARG_MAX: number;
 
+    /**
+     * Gets the arguments of a process as an ArrayBuffer
+     * @param pid - The pid of the process whose arguments you want, must be between 0..{@link PID_MAX} inclusive.
+     * @param nuls - Whether to replace nul bytes with spaces for human consumption.
+     * @param skip - The number of leading args to skip past.
+     * @returns An ArrayBuffer representing the arguments of pid, formatted as requested.
+     * @throws {@link TypeError} if called with: missing pid argument, invalid number as pid, invalid number as skip.
+     * @throws {@link RangeError} if called with pid outside valid range: 0..{@link PID_MAX} inclusive.
+     * @throws {@link SystemError} if the underlying sysctl or parsing fails.
+     */
     get_argv_of_pid(pid: number, nuls: boolean, skip: number): ArrayBuffer
 
+    /**
+     * Gets the arguments of a process as a string
+     * @param pid - The pid of the process whose arguments you want, must be between 0..{@link PID_MAX} inclusive.
+     * @param encoding - The encoding to attempt to apply to the arguments. Must be an enumerated value of {@link TextEncoding}.
+     * @param nuls - Whether to replace nul bytes with spaces for human consumption.
+     * @param skip - The number of leading args to skip past.
+     * @param options - The options to use when decoding the process' arguments' bytes into a string.
+     * @returns A string representing the arguments of pid, formatted as requested.
+     * @throws {@link TypeError} if called with: missing pid, missing encoding argument, invalid number as pid, invalid number as skip, or if `options.fatal` is true and it encounters malformed data while decoding.
+     * @throws {@link RangeError} if called with invalid encoding argument or pid outside valid range: 0..{@link PID_MAX} inclusive.
+     * @throws {@link SystemError} if the underlying sysctl or parsing fails.
+     */
     as_string(pid: number, encoding: TextEncoding, nuls?: boolean, skip?: number, options?: TextDecoderOptions): string
 
+    /**
+     * Gets the arguments of a process as an array of ArrayBuffers
+     * @param pid - The pid of the process whose arguments you want, must be between 0..{@link PID_MAX} inclusive.
+     * @returns An array of ArrayBuffers representing the arguments of pid.
+     * @throws {@link TypeError} if called with: missing pid, too many arguments, invalid number as pid.
+     * @throws {@link RangeError} if called with pid outside valid range: 0..{@link PID_MAX} inclusive.
+     * @throws {@link SystemError} if the underlying sysctl or parsing fails.
+     */
     get_argv_and_argc_of_pid(pid: number): Array<ArrayBuffer>
 
+    /**
+     * Gets the arguments of a process as an array of strings
+     * @param pid - The pid of the process whose arguments you want, must be between 0..{@link PID_MAX} inclusive.
+     * @param encoding - The encoding to attempt to apply to the arguments. Must be an enumerated value of {@link TextEncoding}.
+     * @param options - The options to use when decoding the process' arguments' bytes into strings.
+     * @returns An array of strings representing the arguments of pid.
+     * @throws {@link TypeError} if called with: missing pid, missing encoding argument, too many arguments, invalid number as pid, or if `options.fatal` is true and it encounters malformed data while decoding.
+     * @throws {@link RangeError} if called with: invalid encoding argument, pid outside valid range: 0..{@link PID_MAX} inclusive.
+     * @throws {@link SystemError} if the underlying sysctl or parsing fails.
+     */
     as_array(pid: number, encoding: TextEncoding, options?: TextDecoderOptions): Array<string>
 }
