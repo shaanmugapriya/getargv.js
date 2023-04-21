@@ -12,11 +12,11 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 14.x # EOL: 2023-04-30
+          - 14.x # EOL: 2023-04-30 <<
           - 16.x # EOL: 2023-09-11
           - 18.x # EOL: 2025-04-30
-          - 19.x # EOL: 2023-06-01
-         #- 20.x # REL: 2023-04-18
+          - 19.x # EOL: 2023-06-01 <<
+          - 20.x # EOL: 2026-04-30
          # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
     steps:
     - uses: actions/checkout@v3
