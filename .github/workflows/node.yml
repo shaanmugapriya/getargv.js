@@ -3,6 +3,7 @@ name: Node.js
 on:
   push:
     branches: [ "main" ]
+    tags: [ '*' ]
   pull_request:
     branches: [ "main" ]
 
@@ -12,14 +13,15 @@ jobs:
     strategy:
       matrix:
         node-version:
-          - 14.x # EOL: 2023-04-30 <<
-          - 16.x # EOL: 2023-09-11
           - 18.x # EOL: 2025-04-30
-          - 19.x # EOL: 2023-06-01 <<
           - 20.x # EOL: 2026-04-30
-         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+          - 21.x # EOL: 2024-06-01
+          #- 22.x # REL: 2024-04-23 EOL: 2027-04-30
+          #- 23.x # REL: 2024-10-15 EOL: 2025-06-01
+          #- 24.x # REL: 2025-04-22 EOL: 2028-04-30
+          # See supported Node.js release schedule at https://github.com/nodejs/Release
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         repository: getargv/getargv
         path: getargv
@@ -27,7 +29,7 @@ jobs:
     - name: Build libgetargv
       run: make install_dylib
       working-directory: getargv
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         path: getargv.js
     - name: Use Node.js ${{ matrix.node-version }}
