@@ -72,7 +72,7 @@ jobs:
         token: ${{ secrets.GH_PAT_WRITE }}
     - name: Bump Version
       id: version
-      run: echo "version=$(npm version patch)\n" >> $GITHUB_OUTPUT
+      run: echo "version=$(npm version patch)" >> $GITHUB_OUTPUT
     - name: Push tag
       run: git push origin tag ${{ steps.version.outputs.version }}
     - uses: actions/checkout@v4
