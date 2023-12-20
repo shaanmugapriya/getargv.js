@@ -71,8 +71,14 @@ jobs:
       with:
         token: ${{ secrets.GH_PAT_WRITE }}
     - name: Bump Version
-      run: npm version patch
+      id: version
+      run: echo "version=$(npm version patch)\n" >> $GITHUB_OUTPUT
     - name: Push tag
-      run: |
-        git push origin tag $(git tag --points-at HEAD)
-        git push origin
+      run: git push origin tag ${{ steps.version.outputs.version }}
+    - uses: actions/checkout@v4
+    # deliberately do NOT trigger workflow on push to main
+      with:
+        ref: ${{ steps.version.outputs.version }}
+        token: ${{ github.token }}
+    - name: Push main
+      run: git push origin HEAD:main

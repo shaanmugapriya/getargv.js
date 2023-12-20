@@ -8,12 +8,20 @@ on:
 
 jobs:
   publish-gpr:
-    runs-on: ubuntu-latest
+    runs-on: macos-latest
     permissions:
       contents: read
       packages: write
       id-token: write
     steps:
+    - uses: actions/checkout@v4
+      with:
+        repository: getargv/getargv
+        path: getargv
+        token: ${{ secrets.GH_PAT }}
+    - name: Build libgetargv
+      run: make install_dylib
+      working-directory: getargv
     - uses: actions/checkout@v4
     - uses: actions/setup-node@v3
       with:
