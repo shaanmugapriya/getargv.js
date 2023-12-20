@@ -31,6 +31,8 @@ jobs:
     - run: npm publish
       env:
         NODE_AUTH_TOKEN: ${{ github.token }}
+    - run: npm config list
+      if: ${{ failure() }}
 
   publish-npm:
     runs-on: macos-latest
