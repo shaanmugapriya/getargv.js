@@ -3,7 +3,6 @@ name: Node.js
 on:
   push:
     branches: [ "main" ]
-    tags: [ '*' ]
   pull_request:
     branches: [ "main" ]
 
@@ -60,14 +59,11 @@ jobs:
         path: getargv.js/pkg/*
 
   release:
-    if: ${{ github.ref_type == 'tag' }}
     needs: [ test ]
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/download-artifact@v3
-      with:
-        path: pkg
-    - uses: softprops/action-gh-release@v1
-      with:
-        files: pkg/pack-*/*
-        name: ${{ github.ref_name }}
+    - uses: actions/checkout@v4
+    - name: Bump Version
+      run: npm version minor
+    - name: Push tag
+      run: git push tag
