@@ -82,6 +82,5 @@ jobs:
         clean: false
         ref: ${{ steps.version.outputs.version }}
         token: ${{ github.token }}
-    - run: git status
     - name: Push main
       run: git push origin HEAD:main
