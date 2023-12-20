@@ -68,8 +68,8 @@ jobs:
       GIT_COMMITTER_EMAIL: 41898282+github-actions[bot]@users.noreply.github.com
     steps:
     - uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GH_PAT_WRITE }}
+      with:
+        token: ${{ secrets.GH_PAT_WRITE }}
     - name: Bump Version
       run: npm version patch
     - name: Push tag
