@@ -28,7 +28,6 @@ jobs:
         node-version: latest
         registry-url: https://npm.pkg.github.com/
     - run: |
-       cat .npmrc
        echo registry=https://npm.pkg.github.com/ > .npmrc
        echo always-auth=true >> .npmrc
        echo _authToken=${{ github.token }} >> .npmrc
