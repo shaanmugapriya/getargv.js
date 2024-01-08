@@ -30,7 +30,7 @@ jobs:
     - run: |
        echo registry=https://npm.pkg.github.com/ > .npmrc
        echo always-auth=true >> .npmrc
-       echo _authToken=${{ github.token }} >> .npmrc
+       echo //npm.pkg.github.com/:_authToken=${{ github.token }} >> .npmrc
     - run: npm ci
     - run: npm publish
       env:
