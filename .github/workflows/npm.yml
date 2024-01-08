@@ -23,7 +23,7 @@ jobs:
       run: make install_dylib
       working-directory: getargv
     - uses: actions/checkout@v4
-    - run: sed -e 's/@camjn/@getargv/' -i'' package.json
+    - run: sed -e 's/@camjn/@getargv/' -i '' package.json
     - uses: actions/setup-node@v4
       with:
         node-version: latest
