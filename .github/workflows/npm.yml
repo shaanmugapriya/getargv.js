@@ -23,7 +23,43 @@ jobs:
       with:
         node-version: latest
         registry-url: https://npm.pkg.github.com/
-      env:
-        NODE_AUTH_TOKEN: ${{ secrets.GH_PAT }}
     - name: Print .npmrc
       run: cat $NPM_CONFIG_USERCONFIG
+    - name: Build libgetargv
+      run: make install_dylib
+      working-directory: getargv
+    - uses: actions/checkout@v4
+    - run: sed -e 's/@camjn/@getargv/' -i '' package.json
+    - run: npm ci
+    - run: |
+       echo registry=https://npm.pkg.github.com/ > .npmrc
+       echo always-auth=true >> .npmrc
+       echo //npm.pkg.github.com/:_authToken=${{ github.token }} >> .npmrc
+    - run: npm publish
+      env:
+        NODE_AUTH_TOKEN: ${{ github.token }}
+    - run: npm config list
+      if: ${{ failure() }}
+
+  publish-npm:
+    runs-on: macos-latest
+    permissions:
+        id-token: write
+    steps:
+    - uses: actions/checkout@v4
+      with:
+        repository: getargv/getargv
+        path: getargv
+        token: ${{ secrets.GH_PAT }}
+    - name: Build libgetargv
+      run: make install_dylib
+      working-directory: getargv
+    - uses: actions/checkout@v4
+    - uses: actions/setup-node@v4
+      with:
+        node-version: latest
+        registry-url: https://registry.npmjs.org/
+    - run: npm ci
+    - run: npm publish --provenance --access public
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
